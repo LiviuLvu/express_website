@@ -21,5 +21,46 @@ app.get('/about', function (req, res) {
   res.render('about');
 });
 
+app.get('/contact', function (req, res) {
+  res.render('contact');
+});
+
+app.post('/contact/send', function (req, res) {
+  var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'lvumail1@gmail.com',
+      pass: 'testmail!@#$'
+    }
+  });
+
+  var mailOptions = {
+    from: 'lvumail1 <lvumail1@gmail.com>',
+    to: 'lvudesign@gmail.com',
+    subject: 'Website Submissiion',
+    text:
+      'You have a submission with the following details. Name: ' + req.body.name +
+      'Email: ' + req.body.email +
+      'Message: ' + req.body.message,
+    html:
+      '<p>You have a submission with the following details...</p><ul><li>Name: ' + req.body.name +
+      '</li><li> Email: ' + req.body.email +
+      '</li><li> Mesage: ' + req.body.mesage +
+      '</li></ul>'
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if(error) {
+      console.log(error);
+      res.redirect('/');
+    }
+    else {
+      console.log('Message Sent: ' + info.response);
+      res.redirect('/');
+    }
+  });
+
+});
+
 app.listen(3000);
 console.log('Server is running on port 3000');
