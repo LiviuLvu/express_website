@@ -30,14 +30,14 @@ app.post('/contact/send', function (req, res) {
     service: 'Gmail',
     auth: {
       user: 'lvumail1@gmail.com',
-      pass: 'testmail!@#$'
+      pass: ''
     }
   });
 
   var mailOptions = {
     from: 'lvumail1 <lvumail1@gmail.com>',
     to: 'lvudesign@gmail.com',
-    subject: 'Website Submissiion',
+    subject: 'Website Submission',
     text:
       'You have a submission with the following details. Name: ' + req.body.name +
       'Email: ' + req.body.email +
@@ -45,7 +45,7 @@ app.post('/contact/send', function (req, res) {
     html:
       '<p>You have a submission with the following details...</p><ul><li>Name: ' + req.body.name +
       '</li><li> Email: ' + req.body.email +
-      '</li><li> Mesage: ' + req.body.mesage +
+      '</li><li> Message: ' + req.body.message +
       '</li></ul>'
   };
 
